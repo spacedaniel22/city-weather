@@ -1,0 +1,160 @@
+:root {
+  font-size: 14px;
+}
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Kreon', serif;
+}
+svg {
+  stroke: #1BBC9B;
+  fill: #1BBC9B;
+  height: 120px;
+  width: 120px;
+}
+g {
+  stroke: #1BBC9B;
+  fill: #1BBC9B;
+}
+main {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 8vh auto;
+  max-width: 60vw;
+  text-align: center;
+}
+main > h1 {
+  font-size: 2.5em;
+  font-weight: 400;
+  font-family: 'Maven Pro', sans-serif;
+  margin: 0 0 8vh 0;
+}
+main > h1 i.fa {
+  font-size: 2rem;
+  margin-right: 1.3rem;
+  vertical-align: baseline;
+}
+main svg {
+  display: none;
+  vertical-align: bottom;
+}
+main .search-box .error {
+  display: none;
+}
+.weather {
+  position: relative;
+  font-size: 2.6rem;
+  font-weight: 300;
+  text-align: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+.weather .to-hide {
+  display: none;
+}
+.weather button {
+  position: relative;
+  font-size: 2.3rem;
+  font-family: 'Maven Pro', sans-serif;
+  color: dimgrey;
+  padding: 0;
+  vertical-align: super;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.weather button:focus {
+  outline: none;
+}
+.weather .weather-city {
+  position: relative;
+  margin-top: .5em;
+  padding: 2rem;
+  border: 0.25rem solid dimgrey;
+  -webkit-border-radius: .2rem;
+  border-radius: .2rem;
+}
+.weather .weather-city > .fa-close {
+  position: absolute;
+  left: 3vw;
+  top: 4vw;
+  cursor: pointer;
+  font-size: 2.4rem;
+  color: lightcoral;
+}
+.weather .weather-city .city-name {
+  margin: 0 0 1.2rem 0;
+}
+.weather .weather-city .temp-unit {
+  display: inline-block;
+  position: relative;
+}
+.weather .weather-city .temp-unit .unit {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  width: 1.6em;
+  text-align: left;
+}
+.weather .weather-city .temp-unit .unit:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+.weather .weather-city .temp-unit .unit .tooltip {
+  display: block;
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+  width: 10em;
+  padding: .2em .8em;
+  font-size: 1rem;
+  top: -1.8em;
+  left: -2em;
+  background-color: #ddd;
+  -webkit-border-radius: .2em;
+  border-radius: .2em;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.weather .weather-city .temp-unit .unit .tooltip::after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  bottom: -8px;
+  right: 50%;
+  -webkit-transform: translateX(50%);
+  -ms-transform: translateX(50%);
+  transform: translateX(50%);
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #ddd;
+}
+.weather .weather-city .temp-unit .unit small {
+  position: absolute;
+  display: inline-block;
+  top: .2em;
+  left: .6em;
+  margin-left: -10px;
+  margin-right: 10px;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.weather .weather-city .temp-unit .unit small:not(.active) {
+  -webkit-transform: translateX(150%);
+  -ms-transform: translateX(150%);
+  transform: translateX(150%);
+  color: dimgrey;
+}
