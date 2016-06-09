@@ -1,7 +1,9 @@
 @size: 120px;
 @svgSize: 80px;
 
-@blue: #1BBC9B;
+@base: #D24D57;
+@blue: #2A6685;
+@yellow: #EBE777;
 @grey: dimgrey;
 
 :root {
@@ -16,18 +18,15 @@ body {
 	padding: 0;
     margin: 0;
 	font-family: 'Kreon', serif;
+    background-color: @yellow;
 }
 
-svg {
-	stroke: @blue;
-	fill: @blue;
-	height: @size;
-	width: @size;
+input:focus {
+    outline: none;
 }
 
-g {
-	stroke: @blue;
-	fill: @blue;
+p {
+    color: @grey;
 }
 
 main {
@@ -38,25 +37,48 @@ main {
 	text-align: center;
 
 	& > h1 {
-		font-size: 2.5em;
-		font-weight: 400;
+        color: darken(@grey, 0%);
+        // text-align: left;
+		font-size: 2.5rem;
+		font-weight: 600;
+        text-transform: capitalize;
 		font-family: 'Maven Pro', sans-serif;
-        margin: 0 0 8vh 0;
+        margin: 0 0 1em 0;
+        // padding: 0 2em 1em 2em;
+        // border-bottom: .123em solid @grey;
 
         i.fa {
-            font-size: 2rem;
-            margin-right: 1.3rem;
+            font-size: 2.4rem;
+            margin-right: 1.1em;
             vertical-align: baseline;
+            //color: @blue;
         }
 
     }
-    svg {
-        display: none;
-        vertical-align: bottom;
-    }
+
     .search-box {
+        padding: 0 0 3em 0;
         .error {
             display: none;
+            font-size: 2rem;
+            color: @grey;
+        }
+        input {
+            box-sizing: border-box;
+            font-size: 2rem;
+            padding: .5em 1em;
+            //border: none;
+            border: 0.12em solid @grey;
+            font-family: 'Maven Pro', sans-serif;
+
+            &[type="search"] {
+                color: @grey;
+            }
+            &[type="button"] {
+                background: @grey;
+                color: white;
+                cursor: pointer;
+            }
         }
     }
 }
@@ -67,47 +89,41 @@ main {
 	text-align: center;
 	// margin-top: 1.4em;
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
 
     .to-hide {
         display: none;
     }
 
-	button {
-		position: relative;
-		font-size: 2.3rem;
-		font-family: 'Maven Pro', sans-serif;
-		color: @grey;
-		//float: right;
-		padding: 0;
-		//margin-left: 2em;
-		vertical-align: super;
-		border: none;
-		background-color: transparent;
-		cursor: pointer;
-
-		&:focus {
-			outline: none;
-        }
-    }
 	.weather-city {
         position: relative;
-		margin-top: .5em;
-        padding: 2rem;
-        border: 0.25rem solid @grey;
-        border-radius: .2rem;
+        font-size: 2rem;
+        color: white;
+		margin: 0 .5em .5em 0;
+        width: 28vw;
+        padding: 1.4em;
+        // border: 0.078em solid lighten(@grey, 40%);
+        border-radius: .12em;
+        background-color: @base;
+        @media (max-width: 900px) {
+            font-size: 1.5vh;
+            width: 40vw;
+        }
 
         & > .fa-close {
             position: absolute;
-            left: 3vw;
-            top: 4vw;
+            left: .6em;
+            top: .6em;
             cursor: pointer;
-            font-size: 2.4rem;
-            color: lightcoral;
+            font-size: 2rem;
+            // color: white;
         }
 
         .city-name {
             margin: 0 0 1.2rem 0;
+            word-break: break-word;
         }
 
 		.temp-unit {
@@ -134,11 +150,14 @@ main {
 					opacity: 0;
 					visibility: hidden;
 					width: 10em;
-					padding: .2em .8em;
+					padding: .3em .8em;
 					font-size: 1rem;
-					top: -1.8em;
-					left: -2em;
-					background-color: #ddd;
+                    line-height: 1.5;
+                    // color: @grey;
+					top: -2.4em;
+					left: 50%;
+                    transform: translateX(-50%);
+					background-color: @blue;
 					border-radius: .2em;
 					transition: all .2s ease-in-out;
 
@@ -153,7 +172,7 @@ main {
 						transform: translateX(50%);
 						border-left: 8px solid transparent;
 						border-right: 8px solid transparent;
-						border-top: 8px solid #ddd;
+						border-top: 8px solid @blue;
                     }
                 }
 				small {
@@ -170,7 +189,7 @@ main {
                     }
 					&:not(.active) {
 						transform: translateX(150%);
-						color: @grey;
+						color: lighten(@grey, 35%);
                     }
                 }
             }
