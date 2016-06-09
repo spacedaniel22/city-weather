@@ -1,9 +1,12 @@
 (function () {
 
     $(document).ready(function() {
-        var  $search = $(".search-box");
+        var $search = $(".search-box");
+        var $searchbutton = $search.find("#startSearch");
+        var $searchInput = $search.find("#citySearchInput");
         var $weather = $(".weather");
-        $search.find("#startSearch").on("click", {weather: $weather}, getWeather);
+        $searchbutton.on("click", {weather: $weather}, getWeather);
+        //$searchInput.on("keypress", {weather: $weather}, enterHandler);
         //$search.delegate("#startSearch", "click", getWeather);
         //$weather.find(".unit").on("click", changeUnit);
         $weather.delegate(".unit", "click", changeUnit);
@@ -18,6 +21,12 @@
     function errorHide() {
         $(".error").fadeOut(100);
     }
+
+    // function enterHandler(e) {
+    //     if(e.keyCode == 13){
+    //         getWeather(e);
+    //     }
+    // }
 
     function removeRecord() {
         $(this).closest(".weather-city").remove();
@@ -139,7 +148,7 @@
 
         var input = $(this).siblings("input"),
             inputText = input.val();
-
+        //console.log(input, );
         if(!inputText) {
             errorShow();
         } else {
@@ -156,7 +165,7 @@
         		url: url,
         		dataType: "json",
         		success: function(data) {
-        			// console.log(data);
+        			//console.log(data);
                     if(data.cod === "404") {
                         errorShow();
                     } else {
@@ -174,7 +183,7 @@
 
                         if(validInputText === city.toLowerCase()) {
                             errorHide();
-                            
+
                             $city.text(city);
                             $temp.text(temp);
                             $cond.text(condition + comma);

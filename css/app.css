@@ -56,7 +56,7 @@ main .search-box input {
 main .search-box input[type="search"] {
   color: dimgrey;
 }
-main .search-box input[type="button"] {
+main .search-box input[type="submit"] {
   background: dimgrey;
   color: white;
   cursor: pointer;
