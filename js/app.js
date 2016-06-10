@@ -5,12 +5,13 @@
         var $searchbutton = $search.find("#startSearch");
         var $searchInput = $search.find("#citySearchInput");
         var $weather = $(".weather");
-        $searchbutton.on("click", {weather: $weather}, getWeather);
-        //$searchInput.on("keypress", {weather: $weather}, enterHandler);
-        //$search.delegate("#startSearch", "click", getWeather);
-        //$weather.find(".unit").on("click", changeUnit);
+        var elementsObj = {
+            weather: $weather,
+            input: $searchInput
+        }
+        $searchInput.on("keypress", elementsObj, enterHandler);
+        $search.delegate("#startSearch", "click", elementsObj, getWeather);
         $weather.delegate(".unit", "click", changeUnit);
-        //$weather.find(".weather-city .fa-close").on("click", removeRecord);
         $weather.delegate(".fa-close", "click", removeRecord);
     });
 
@@ -22,11 +23,11 @@
         $(".error").fadeOut(100);
     }
 
-    // function enterHandler(e) {
-    //     if(e.keyCode == 13){
-    //         getWeather(e);
-    //     }
-    // }
+    function enterHandler(e) {
+        if(e.keyCode === 13) {
+            getWeather(e);
+        }
+    }
 
     function removeRecord() {
         $(this).closest(".weather-city").remove();
@@ -144,11 +145,11 @@
 
      }
 
-    function getWeather(event) {
-
-        var input = $(this).siblings("input"),
+    function getWeather(e) {
+        console.log(e);
+        var input = e.data.input,
             inputText = input.val();
-        //console.log(input, );
+
         if(!inputText) {
             errorShow();
         } else {
@@ -170,7 +171,7 @@
                         errorShow();
                     } else {
             			var $clonedTemplate = $(".to-clone").clone(),
-                            $weather = event.data.weather,
+                            $weather = e.data.weather,
                             $temp = $clonedTemplate.find(".temperature"),
                             $city = $clonedTemplate.find(".city-name"),
                             $cond = $clonedTemplate.find(".condition"),
