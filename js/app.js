@@ -1,20 +1,5 @@
 (function () {
 
-    $(document).ready(function() {
-        var $search = $(".search-box");
-        var $searchbutton = $search.find("#startSearch");
-        var $searchInput = $search.find("#citySearchInput");
-        var $weather = $(".weather");
-        var elementsObj = {
-            weather: $weather,
-            input: $searchInput
-        }
-        $searchInput.on("keypress", elementsObj, enterHandler);
-        $search.delegate("#startSearch", "click", elementsObj, getWeather);
-        $weather.delegate(".unit", "click", changeUnit);
-        $weather.delegate(".fa-close", "click", removeRecord);
-    });
-
     function errorShow() {
         $(".error").fadeIn(100);
     }
@@ -34,18 +19,18 @@
     }
 
      function changeUnit() {
-     	var $tempElement = $(this).siblings(".temperature"),
-    			temp = $tempElement.text(),
-    			$unitElement = $(this).find(".active"),
-    			unit = $unitElement.text(),
-    			farenheit = "F",
-    			celsius = "C";
-    	if(unit === celsius) {
-    		$tempElement.text(Math.round(temp * 9 / 5 + 32));
-    	} else {
-    		$tempElement.text(Math.round((temp - 32) * 5 / 9));
-    	}
-    	$(this).find("small").toggleClass("active");
+        var $tempElement = $(this).siblings(".temperature"),
+                temp = $tempElement.text(),
+                $unitElement = $(this).find(".active"),
+                unit = $unitElement.text(),
+                farenheit = "F",
+                celsius = "C";
+        if(unit === celsius) {
+            $tempElement.text(Math.round(temp * 9 / 5 + 32));
+        } else {
+            $tempElement.text(Math.round((temp - 32) * 5 / 9));
+        }
+        $(this).find("small").toggleClass("active");
      }
 
      function removeDiacritics (str) {
@@ -146,41 +131,45 @@
      }
 
     function getWeather(e) {
-        console.log(e);
-        var input = e.data.input,
-            inputText = input.val();
+
+        var input = e.data.input;
+        var inputText = input.val();
 
         if(!inputText) {
+
             errorShow();
+
         } else {
 
             var validInputText = removeDiacritics(inputText.toLowerCase());
+            var api = "http://api.openweathermap.org/data/2.5/weather?",
+                appid = "4140fce75a89d7429243e99c8a835658",
+                city = validInputText,
+                unitSystem = "metric",
+                url = api + "q=" + city + "&units=" + unitSystem + "&appid=" + appid;
 
-        	var api = "http://api.openweathermap.org/data/2.5/weather?",
-        		appid = "4140fce75a89d7429243e99c8a835658",
-        		city = validInputText,
-        		unitSystem = "metric",
-        		url = api + "q=" + city + "&units=" + unitSystem + "&appid=" + appid;
-
-        	$.ajax({
-        		url: url,
-        		dataType: "json",
-        		success: function(data) {
-        			//console.log(data);
+            $.ajax({
+                url: url,
+                dataType: "json",
+                success: function(data) {
+                    //console.log(data);
                     if(data.cod === "404") {
+
                         errorShow();
+
                     } else {
-            			var $clonedTemplate = $(".to-clone").clone(),
+                        
+                        var $clonedTemplate = $(".to-clone").clone(),
                             $weather = e.data.weather,
                             $temp = $clonedTemplate.find(".temperature"),
                             $city = $clonedTemplate.find(".city-name"),
                             $cond = $clonedTemplate.find(".condition"),
                             $description = $clonedTemplate.find(".description"),
-            				comma = ",",
-            				temp = Math.floor(data.main.temp),
-            				city = data.name,
-            				condition = data.weather[0].main,
-            				condDescription = data.weather[0].description;
+                            comma = ",",
+                            temp = Math.floor(data.main.temp),
+                            city = data.name,
+                            condition = data.weather[0].main,
+                            condDescription = data.weather[0].description;
 
                         if(validInputText === city.toLowerCase()) {
                             errorHide();
@@ -195,13 +184,31 @@
                         } else {
                             errorShow();
                         }
+
                         input.val("");
+
                     }
-        		},
+                },
                 error: function() {
                     errorShow();
                 }
-        	});
+            });
         }
     }
+
+    $(document).ready(function() {
+        var $search = $(".search-box");
+        var $searchbutton = $search.find("#startSearch");
+        var $searchInput = $search.find("#citySearchInput");
+        var $weather = $(".weather");
+        var elementsObj = {
+            weather: $weather,
+            input: $searchInput
+        }
+        $searchInput.on("keypress", elementsObj, enterHandler);
+        $search.delegate("#startSearch", "click", elementsObj, getWeather);
+        $weather.delegate(".unit", "click", changeUnit);
+        $weather.delegate(".fa-close", "click", removeRecord);
+    });
+
 }());
